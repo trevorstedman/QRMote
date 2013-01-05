@@ -1,0 +1,7 @@
+LINUX:
+
+sudo apt-get install libcairo2-dev
+
+WINDOWS:
+
+You're fucked!
