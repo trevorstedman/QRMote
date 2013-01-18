@@ -1,0 +1,11 @@
+root { 
+  display: block;
+}
+
+div.column {
+  width: 250px;
+  float: left;
+}
+
+
+

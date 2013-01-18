@@ -14,21 +14,109 @@ app.get('/', function(req, res) {
 });
 
 app.get('/connect/:id', function(req, res) {
-  res.redirect('http://192.168.1.64/ipmote/example/remote?qr_key=' + req.params.id);
+  var server = store.get(req.params.id);
+  if (!!server) {
+    server.get('qrmote_remoteurl', function(err, url) {
+      res.redirect(url + '?_qrmk=' + req.params.id);
+    });
+  }
+  else {
+    res.send(404);
+  }
 });
 
-io.sockets.on('connection', function(socket) {
+var channels = {};
+
+function getChannel(i) {
+  
+  var channel = channels[i];
+  if(!!channel) {
+    return channel;
+  }
+  
+  var channel = channels[i] = io.of('/server' + i);
+  
+  channel.on('connection', function(socket) {
+
+    // bridge the remote with the site
+    socket.on('message', function(data) {
+      socket.get('qrmote_clients', function(err, clients) {
+        for (var name in clients) {
+          var client = clients[name];
+          if (!!client) {
+            client.emit('message', data);
+          }
+        }
+      });
+    });
+
+    socket.on('qrmote_initserver', function(config, respond) {
+      var serverId = store.add(socket);
+      respond(serverId);
+      socket.set('qrmote_remoteurl', config.remoteUrl);
+      socket.set('qrmote_clients', {});
+    });
+
+    socket.on('disconnect', function() {
+      socket.get('qrmote_clients', function(err, clients) {
+        for (var name in clients) {
+          var client = clients[name];
+          client.emit('message', {
+            command: 'qrmote_disconnect'
+          });
+        }
+      });
+    });
+  });
+
+  return channel;
+}
+
+io.of('/initserver').on('connection', function(socket) {
+  
+  socket.on('qmote_getchannel', function(channel, respond) {
+    getChannel(channel);
+    respond();
+  });
+});
+
+io.of('/client').on('connection', function(socket) {
 
   // bridge the remote with the site
   socket.on('message', function(data) {
-    var target = store.get(data.key);
-    if (!!target) {
-      target.emit('message', data);
+    socket.get('qrmote_clientid', function(err, clientId) {
+      var server = store.get(clientId);
+      if (!!server) {
+        server.emit('message', data);
+      }
+    });
+  });
+
+  socket.on('qrmote_initclient', function(clientId) {
+    socket.set('qrmote_clientid', clientId);
+    var server = store.get(clientId);
+    if (!!server) {
+      server.emit('message', {
+        command: 'qrmote_connect',
+        data: clientId
+      });
+      server.get('qrmote_clients', function(err, clients) {
+        clients[clientId] = socket;
+        server.set('qrmote_clients', clients);
+      });
     }
   });
 
-  socket.on('get key', function(name, fn) {
-    var key = store.add(socket);
-    fn(key);
+  socket.on('disconnect', function() {
+    socket.get('qrmote_clientid', function(err, clientId) {
+      var target = store.get(clientId);
+      if (!!target) {
+      target.emit('message', {
+        command: 'qrmote_disconnect',
+        data: clientId
+      });
+      }
+    });
   });
+
 });

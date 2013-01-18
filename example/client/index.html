@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QRmote test remote</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+    <script src="../config.js"></script>
+    
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="../../client/dist/qrmote.js"></script>
+
+    <script>
+
+      QRmote.init(Config.socketHost);
+
+      var client = new QRmote.Client();
+
+      client.on('qrmote_disconnect', function() {
+        alert('disconnected');
+      });
+
+      $(function() {
+        $('body').on('click', '[data-command]', function(event) {
+          client.emit('link_pressed', $(event.target).data('command'));
+        });
+      });
+      
+      var
+        $output = $('#output'),
+        server = new QRmote.Server({
+          element: 'qrmote_qrcode',
+          client: Config.exampleSite + '/ipmote/example/client'
+        });
+
+        window['server'] = server;
+
+        server
+          .on('link_pressed', function(data) {
+            $output.append('Link ' + data + ' pressed<br>');
+          })
+          .on('qrmote_connect', function() {
+            $output.append('User connected<br>');
+          })
+          .on('qrmote_disconnect', function() {
+            $output.append('User disconnected<br>');
+          });
+
+    </script>
+
+    <link rel="stylesheet" href="style.css" media="screen">
+
+  </head>
+  <body>
+    <div id="main">
+      <ul>
+        <li><a href="#" data-command="1">Link 1</a></li>
+        <li><a href="#" data-command="2">Link 2</a></li>
+        <li><a href="#" data-command="3">Link 3</a></li>
+        <li><a href="#" data-command="4">Link 4</a></li>
+        <li><a href="#" data-command="5">Link 5</a></li>
+      </ul>
+    </div>
+    <div class="column">
+      <div id="qrmote_qrcode"></div>
+      <br>
+      <div id="output"></div>
+    </div>
+  </body>
+</html>

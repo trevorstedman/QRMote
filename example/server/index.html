@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QRmote test site</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+    <script src="../config.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="../../client/dist/qrmote.js"></script>
+
+    <script>
+
+      QRmote.init(Config.socketHost);
+
+      function createServer(seed) {
+        
+        var
+          $output = $('#output' + seed),
+          server = new QRmote.Server({
+            element: 'qrmote_qrcode' + seed,
+            clientUrl: Config.exampleSite + '/ipmote/example/client'
+          });
+
+        window['server' + seed] = server;
+
+        server
+          .on('link_pressed', function(data) {
+            $output.append('Link ' + data + ' pressed<br>');
+          })
+          .on('qrmote_connect', function() {
+            $output.append('User connected<br>');
+          })
+          .on('qrmote_disconnect', function() {
+            $output.append('User disconnected<br>');
+          });
+      }
+
+      $(function() {
+        createServer(1);
+        createServer(2);
+        createServer(3);
+        createServer(4);
+        createServer(5);
+      });
+    </script>
+
+    <link rel="stylesheet" href="style.css" media="screen">
+
+  </head>
+  <body>
+    <div class="column">
+      <div id="qrmote_qrcode1"></div>
+      <br>
+      <div id="output1"></div>
+    </div>
+    <div class="column">
+      <div id="qrmote_qrcode2"></div>
+      <br>
+      <div id="output2"></div>
+    </div>
+    <div class="column">
+      <div id="qrmote_qrcode3"></div>
+      <br>
+      <div id="output3"></div>
+    </div>
+    <div class="column">
+      <div id="qrmote_qrcode4"></div>
+      <br>
+      <div id="output4"></div>
+    </div>
+    <div class="column">
+      <div id="qrmote_qrcode5"></div>
+      <br>
+      <div id="output5"></div>
+    </div>
+  </body>
+</html>
