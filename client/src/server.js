@@ -1,65 +1,36 @@
 QRmote.Server = function(config) {
 
   var
-    connections = 0,
-    seed = arguments.callee.seed = ++arguments.callee.seed || 1,
-    connectionDiv = 'qrmote_info' + seed,
-
-    self = object(new QRmote.EndPoint('server' + seed)),
-
-    updateStatus = function() {
-      var element = document.getElementById(connectionDiv);
-      if (element) {
-        if (connections) {
-          element.style.color = 'green';
-          element.innerHTML = connections + ' connection' + (connections > 1 ? 's' : '');
-        }
-        else {
-          element.style.color = 'red';
-          element.innerHTML = 'Waiting...';
-        }
-      }
-    };
+    channel = arguments.callee.channel = ++arguments.callee.channel || 1,
+    self = object(new QRmote.EndPoint('server' + channel, config.remoteKey)),
+    qrCode;
 
   initSocket.get(function(s1) {
-    s1.emit('qmote_getchannel', seed, function() {
-      
+    s1.emit('qmote_getchannel', channel, function() {
+        
       self.socket.get(function(s2) {
         s2.emit('qrmote_initserver', { remoteUrl: config.clientUrl }, function(key) {
 
           self.remoteKey = key;
-
-          var
-            element = document.getElementById(config.element),
-            qr = qrcode(4, 'L');
-
-          qr.addData(QRmote.socketHost + '/connect/' + key);
-          qr.make();
-
-          var html = '<div style="width:132px">' +
-                      '<div style="height:132px;margin-bottom:5px;">' + qr.createImgTag(4, 0) + '</div>' +
-                      '<div id="' + connectionDiv + '" style="font-family:arial;text-align:center;font-size:11pt;font-weight:bold;"></div>' +
-                     '</div>';
-
-          element.innerHTML = html;
-          updateStatus();
+          qrCode = new QRcode(config.element, key, {
+            type: config.qrType || 4,
+            errorCorrection: config.errorCorrection || 'L',
+            size: config.qrSize || 4,
+            indicator: true
+          });
         });
       });
-      
     });
   });
 
-  self.on('qrmote_connect', function() {
-    connections++;
-    updateStatus();
+  self.on('client_connect', function(data) {
+    qrCode.updateStatus(data.count);
   });
 
-  self.on('qrmote_disconnect', function() {
-    connections--;
-    updateStatus();    
+  self.on('client_disconnect', function(data) {
+    qrCode.updateStatus(data.count);    
   });
 
   return self;
-
 };
 

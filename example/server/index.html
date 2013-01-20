@@ -28,10 +28,10 @@
           .on('link_pressed', function(data) {
             $output.append('Link ' + data + ' pressed<br>');
           })
-          .on('qrmote_connect', function() {
+          .on('client_connect', function() {
             $output.append('User connected<br>');
           })
-          .on('qrmote_disconnect', function() {
+          .on('client_disconnect', function() {
             $output.append('User disconnected<br>');
           });
       }
@@ -40,8 +40,6 @@
         createServer(1);
         createServer(2);
         createServer(3);
-        createServer(4);
-        createServer(5);
       });
     </script>
 

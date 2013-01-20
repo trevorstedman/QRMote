@@ -15,15 +15,37 @@
 
       var client = new QRmote.Client();
 
-      client.on('qrmote_disconnect', function() {
+      client.on('server_disconnect', function() {
         alert('disconnected');
       });
 
       $(function() {
+
         $('body').on('click', '[data-command]', function(event) {
           client.emit('link_pressed', $(event.target).data('command'));
         });
+        
+        client.share('qrmote_qrcode');
+//
+//        var
+//          $output = $('#output'),
+//          server = window.server = new QRmote.Server({
+//            element: 'qrmote_qrcode',
+//            client: Config.exampleSite + '/ipmote/example/client'
+//          });
+//
+//          server
+//            .on('link_pressed', function(data) {
+//              $output.append('Link ' + data + ' pressed<br>');
+//            })
+//            .on('client_connect', function() {
+//              $output.append('User connected<br>');
+//            })
+//            .on('client_disconnect', function() {
+//              $output.append('User disconnected<br>');
+//            });
       });
+      
 
     </script>
 

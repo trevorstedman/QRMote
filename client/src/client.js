@@ -8,6 +8,16 @@ QRmote.Client = function() {
   self.socket.get(function(s) {
     s.emit('qrmote_initclient', remoteKey);
   });
+  
+  self.share = function(elementId, options) {
+    options = options || {};
+    new QRcode(elementId, remoteKey, {
+      type: options.qrType || 4,
+      errorCorrection: options.errorCorrection || 'L',
+      size: options.qrSize || 4,
+      indicator: false
+    });
+  };
 
   return self;
 };

@@ -15,7 +15,7 @@
 
       var client = new QRmote.Client();
 
-      client.on('qrmote_disconnect', function() {
+      client.on('server_disconnect', function() {
         alert('disconnected');
       });
 
@@ -24,26 +24,6 @@
           client.emit('link_pressed', $(event.target).data('command'));
         });
       });
-      
-      var
-        $output = $('#output'),
-        server = new QRmote.Server({
-          element: 'qrmote_qrcode',
-          client: Config.exampleSite + '/ipmote/example/client'
-        });
-
-        window['server'] = server;
-
-        server
-          .on('link_pressed', function(data) {
-            $output.append('Link ' + data + ' pressed<br>');
-          })
-          .on('qrmote_connect', function() {
-            $output.append('User connected<br>');
-          })
-          .on('qrmote_disconnect', function() {
-            $output.append('User disconnected<br>');
-          });
 
     </script>
 
