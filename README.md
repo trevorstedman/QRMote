@@ -23,6 +23,7 @@ of your websocket server).
     element: 'my_qrmote_div',
     clientUrl: 'http://path/to/your/client/page' // do not use localhost here - otherwise it will not work on the phone
   });
+  // send and receive messages here using server.on and server.emit
 </script>
 ```
 
@@ -33,6 +34,7 @@ Create a "client" HTML page with the following javascript, replacing 'websocketh
 <script>
   QRmote.init('http://websockethost:8080');
   var client = new QRmote.Client();
+  // send and receive messages here using client.on and client.emit
 </script>
 ```
 
