@@ -25,7 +25,7 @@ node app.js
 ```
 
 Create a "server" HTML page with a <div> on it named 'my_qrmote_div', and the following javascript (replace websockethost with the hostname
-of your websocket server). Put qrmote.js in the same directory (or put it in a known place and modify the script tag appropriately).
+of your websocket server). Put qrmote.js in the same directory (or put it in a known place and modify the script tag src path appropriately).
 
 ```html
 <script src="qrmote.js"></script>
@@ -40,7 +40,7 @@ of your websocket server). Put qrmote.js in the same directory (or put it in a k
 ```
 
 Create a "client" HTML page with the following javascript, replacing 'websockethost' with the hostname of the host running your websocket server.
-Put qrmote.js in the same directory (or put it in a known place and modify the script tag appropriately).
+Put qrmote.js in the same directory (or put it in a known place and modify the script tag src path appropriately).
 
 ```html
 <script src="qrmote.js"></script>
