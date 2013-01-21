@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
 app.get('/connect/:id', function(req, res) {
   var server = store.get(req.params.id);
   if (!!server) {
-    res.redirect(server.remoteUrl + '?_qrmk=' + req.params.id);
+    res.redirect(server.remoteUrl + '?_qsid=' + req.params.id);
   }
   else {
     res.send(404);

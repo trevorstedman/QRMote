@@ -1839,9 +1839,13 @@ QRmote.EndPoint.prototype = {
 QRmote.Client = function() {
 
   var
-    match = window.location.search.match('_qrmk=([^&;]+)'),
+    match = window.location.search.match('_qsid=([^&;]+)'),
     serverId = match && match[1],
     self = object(new QRmote.EndPoint('client'));
+
+  if (!serverId) {
+    throw 'No server ID (_qsid) in URL.';
+  }
 
   self.socket.get(function(s) {
     s.emit('qrmote_initclient', serverId);
