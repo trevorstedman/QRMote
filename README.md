@@ -1,19 +1,31 @@
 QRmote
 ======
 
+Prerequisites
+-------------
+
+You will need node (v0.8+), npm and grunt installed. Once npm is installed you may install grunt using `sudo npm -g install grunt`.
+
 Quick start
 -----------
 
-In order to get two web pages communicating with eachother, you will need to start a websocket server from the /server directory. The following
-command will start the server on port 8080.
+First, build a copy of the client application.
+
+```bash
+grunt build
+```
+
+The client library will be written to `client/dist/qrmote.js`.
+
+In order to get two web pages communicating with eachother, you will need to start a websocket server from the /server directory. Run the
+following command from inside the server directory, which will start the server on port 8080.
 
 ```javascript
-cd server
 node app.js
 ```
 
 Create a "server" HTML page with a <div> on it named 'my_qrmote_div', and the following javascript (replace websockethost with the hostname
-of your websocket server).
+of your websocket server). Put qrmote.js in the same directory (or put it in a known place and modify the script tag appropriately).
 
 ```html
 <script src="qrmote.js"></script>
@@ -28,6 +40,7 @@ of your websocket server).
 ```
 
 Create a "client" HTML page with the following javascript, replacing 'websockethost' with the hostname of the host running your websocket server.
+Put qrmote.js in the same directory (or put it in a known place and modify the script tag appropriately).
 
 ```html
 <script src="qrmote.js"></script>

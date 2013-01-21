@@ -15,6 +15,6 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('build', 'lint concat:dist');
-  grunt.registerTask('default', 'lint build');
+  grunt.registerTask('default', 'build');
 
 };
