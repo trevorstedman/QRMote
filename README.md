@@ -20,7 +20,7 @@ The client library will be written to `client/dist/qrmote.js`.
 In order to get two web pages communicating with eachother, you will need to start a websocket server from the /server directory. Run the
 following command from inside the server directory, which will start the server on port 8080.
 
-```javascript
+```bash
 node app.js
 ```
 
