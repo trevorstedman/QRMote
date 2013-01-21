@@ -1,8 +1,7 @@
-QRmote.EndPoint = function(channel, remoteKey) {
+QRmote.EndPoint = function(channel) {
 
   this.callbacks = new Callbacks();
   this.socket = sockets.connect(channel);
-  this.remoteKey = remoteKey;
 
   var self = this;
 
@@ -23,7 +22,6 @@ QRmote.EndPoint.prototype = {
   emit: function(command, data) {
     this.socket.get(function(s) {
       s.emit('message', {
-        key: this.remoteKey,
         command: command,
         data: data
       });

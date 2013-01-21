@@ -1803,11 +1803,10 @@ function Sockets(socketHost) {
 
 
 
-QRmote.EndPoint = function(channel, remoteKey) {
+QRmote.EndPoint = function(channel) {
 
   this.callbacks = new Callbacks();
   this.socket = sockets.connect(channel);
-  this.remoteKey = remoteKey;
 
   var self = this;
 
@@ -1828,7 +1827,6 @@ QRmote.EndPoint.prototype = {
   emit: function(command, data) {
     this.socket.get(function(s) {
       s.emit('message', {
-        key: this.remoteKey,
         command: command,
         data: data
       });
@@ -1842,16 +1840,16 @@ QRmote.Client = function() {
 
   var
     match = window.location.search.match('_qrmk=([^&;]+)'),
-    remoteKey = match && match[1],
-    self = object(new QRmote.EndPoint('client', remoteKey));
+    serverId = match && match[1],
+    self = object(new QRmote.EndPoint('client'));
 
   self.socket.get(function(s) {
-    s.emit('qrmote_initclient', remoteKey);
+    s.emit('qrmote_initclient', serverId);
   });
   
   self.share = function(elementId, options) {
     options = options || {};
-    new QRcode(elementId, remoteKey, {
+    new QRcode(elementId, serverId, {
       type: options.qrType || 4,
       errorCorrection: options.errorCorrection || 'L',
       size: options.qrSize || 4,
@@ -1866,17 +1864,17 @@ QRmote.Server = function(config) {
 
   var
     channel = arguments.callee.channel = ++arguments.callee.channel || 1,
-    self = object(new QRmote.EndPoint('server' + channel, config.remoteKey)),
+    self = object(new QRmote.EndPoint('server' + channel)),
     qrCode;
 
   initSocket.get(function(s1) {
     s1.emit('qmote_getchannel', channel, function() {
         
       self.socket.get(function(s2) {
-        s2.emit('qrmote_initserver', { remoteUrl: config.clientUrl }, function(key) {
+        s2.emit('qrmote_initserver', { remoteUrl: config.clientUrl }, function(serverId) {
 
-          self.remoteKey = key;
-          qrCode = new QRcode(config.element, key, {
+          self.id = serverId;
+          qrCode = new QRcode(config.element, serverId, {
             type: config.qrType || 4,
             errorCorrection: config.errorCorrection || 'L',
             size: config.qrSize || 4,
