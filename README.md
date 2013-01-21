@@ -27,7 +27,7 @@ of your websocket server).
 
 Create a "client" HTML page with the following javascript, replacing 'websockethost' with the hostname of the host running your websocket server.
 
-```javascript
+```html
 <script src="qrmote.js"></script>
 <script>
   QRmote.init('http://websockethost:8080');
