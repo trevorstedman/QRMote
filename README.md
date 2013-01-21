@@ -4,7 +4,8 @@ QRmote
 Quick start
 -----------
 
-In order to get two web pages communicating with eachother, you will need to start a websocket server from the /server directory.
+In order to get two web pages communicating with eachother, you will need to start a websocket server from the /server directory. The following
+command will start the server on port 8080.
 
 ```javascript
 cd server
