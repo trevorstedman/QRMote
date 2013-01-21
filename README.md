@@ -4,7 +4,7 @@ QRmote
 Quick start
 -----------
 
-Start the websocket server
+In order to get two web pages communicating with eachother, you will need to start a websocket server from the /server directory.
 
 ```javascript
 cd server
@@ -18,9 +18,9 @@ of your websocket server).
 <script src="qrmote.js"></script>
 <script>
   QRmote.init('http://websockethost:8080');
-  var server = QRmote.Server({
+  var server = new QRmote.Server({
     element: 'my_qrmote_div',
-    clientUrl: 'http://path/to/your/client/page' // do not use localhost here - it will not work on the phone
+    clientUrl: 'http://path/to/your/client/page' // do not use localhost here - otherwise it will not work on the phone
   });
 </script>
 ```
