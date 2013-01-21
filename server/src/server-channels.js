@@ -9,7 +9,7 @@ exports.init = function(io) {
       console.log('getting channel: ' + index);
 
       var channel = channels[index];
-      if(!!channel) {
+      if (!!channel) {
         console.log('got channel: ' + index);
         return channel;
       }
