@@ -4,7 +4,7 @@ QRmote
 Prerequisites
 -------------
 
-You will need node (v0.8+), npm and grunt installed. Once npm is installed you may install grunt using `sudo npm -g install grunt`.
+You will need [node](http://www.nodejs.org) (v0.8+), npm and grunt installed. Once npm is installed you may install grunt using `sudo npm -g install grunt`.
 
 Quick start
 -----------
