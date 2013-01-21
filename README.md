@@ -15,6 +15,7 @@ Create a "server" HTML page with a <div> on it named 'my_qrmote_div', and the fo
 of your websocket server).
 
 ```html
+<script src="qrmote.js"></script>
 <script>
   QRmote.init('http://websockethost:8080');
   var server = QRmote.Server({
@@ -27,8 +28,11 @@ of your websocket server).
 Create a "client" HTML page with the following javascript, replacing 'websockethost' with the hostname of the host running your websocket server.
 
 ```javascript
-QRmote.init('http://websockethost:8080');
-var client = new QRmote.Client();
+<script src="qrmote.js"></script>
+<script>
+  QRmote.init('http://websockethost:8080');
+  var client = new QRmote.Client();
+</script>
 ```
 
 This will render a QR code on the page inside the given div. Scanning this code with a smartphone opens the client web page on the phone.
