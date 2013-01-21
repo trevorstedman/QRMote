@@ -39,7 +39,7 @@ of your websocket server). Put qrmote.js in the same directory (or put it in a k
 </script>
 ```
 
-Create a "client" HTML page with the following javascript, replacing 'websockethost' with the hostname of the host running your websocket server.
+Create a "client" HTML page with the following javascript, replacing 'websockethost' with the hostname of your websocket server.
 Put qrmote.js in the same directory (or put it in a known place and modify the script tag src path appropriately).
 
 ```html
