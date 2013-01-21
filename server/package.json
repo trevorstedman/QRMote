@@ -1,0 +1,13 @@
+{
+  "name": "trevor",
+  "version": "0.0.1",
+  "author": "Trevor Stedman <trevor.stedman@gmail.com",
+  "description": "The server component for QRmote - a QR code based remote control tool",
+  "dependencies": {
+    "express":  "*",
+    "socket.io":  "*"
+  },
+  "engines": {
+    "node": ">=0.8"
+  }
+}

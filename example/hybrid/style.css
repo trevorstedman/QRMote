@@ -1,0 +1,17 @@
+root { 
+  display: block;
+}
+
+li {
+  font-family: arial;
+  font-size: 32pt;
+  float: left;
+  padding-right: 20px;
+  list-style: none;
+}
+
+div.column {
+  width: 250px;
+  float: left;
+}
+
