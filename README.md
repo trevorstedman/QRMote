@@ -62,10 +62,15 @@ Constructor
 -----------
 
 ```javascript
-new QRMote.Server({
-  clientUrl: *clientUrl*
-});
+new QRMote.Server(options)
 ```
+
+**options**
+Type: PlainObject
+
+    **clientUrl**
+    Type: String
+
 
 Multiple servers on a single page
 ---------------------------------
