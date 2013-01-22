@@ -55,28 +55,110 @@ Messages can be sent to the server page from the client page using `client.emit(
 Conversely, the server page can also communicate back to the client using `server.emit(message, data)`, the client receiving the message
 using `client.on(message, handler)`.
 
-The QRMote.Server object
-========================
-
-new QRMote.Server(options)
------------
-
-*options.clientUrl:* (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
-
-server.render(elementId, options)
----------------------------------
-
-*elementId*: (required) the ID of the element to render the QR code in to.
-*options.qrVersion*: (default: 4) the type
-*options.errorCorrection*: (default: L)
-*options.qrSize*: (default: 4)
-
 
 Multiple servers on a single page
----------------------------------
+=================================
 
 Simply invoke `new QRmote.Server` multiple times to create multiple servers on a single page. QRmote will multiplex the socket connection
 for you.
 
+
+The QRMote.Server object
+========================
+
+new QRMote.Server(options)
+--------------------------
+
+Creates a new server object.
+
+**options.clientUrl:** (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
+
+
+server.render(elementId, options)
+---------------------------------
+
+Renders a QR code in the given element.
+
+**elementId**: (required) the ID of the element to render the QR code in to.
+
+**options.qrVersion**: (default: 4) the symbol version of the QR code to render.
+
+**options.errorCorrection**: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
+
+**options.qrSize**: (default: 4) the pixel size of the QR code.
+
+
+server.on(eventName, fn(data))
+------------------------------
+
+Adds a handler for receiving messages with the given event name from all connected clients.
+
+**eventName**: (required) the name of the event to handle.
+
+**fn**: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the client. This object can be of any type.
+
+
+server.emit(eventName, data)
+----------------------------
+
+Sends a message to all clients connected to this server page.
+
+**eventName**: (required) the name of the event to emit.
+
+**data**: (required) the data to emit. This object can be of any type.
+
+
+System events
+-------------
+
+**client_connect: count**
+
+This event is sent by the client when it connects. The number of clients connected to this server is passed as data with this event.
+
+
+**client_disconnect: count**
+
+This event is sent by the client when it disconnects. The number of clients connected to this server is passed as data with this event.
+
+
 The QRMote.Client object
 ========================
+
+new QRMote.Client()
+-------------------
+
+Creates a new client object.
+
+
+client.on(eventName, fn(data))
+------------------------------
+
+Adds a handler for receiving messages with the given event name from the server page.
+
+**eventName**: (required) the name of the event to handle.
+
+**fn**: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the server. This object can be of any type.
+
+
+client.emit(eventName, data)
+----------------------------
+
+Sends a message to the server page.
+
+**eventName**: (required) the name of the event to emit.
+
+**data**: (required) the data to emit. This object can be of any type.
+
+
+client.share(elementId, options)
+--------------------------------
+
+Enables a client to share their connection by displaying a QR code for other devices to scan.
+
+**elementId**: (required) the ID of the element to render the QR code in to.
+
+**options.qrVersion**: (default: 4) the symbol version of the QR code to render.
+
+**options.errorCorrection**: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
+
+**options.qrSize**: (default: 4) the pixel size of the QR code.

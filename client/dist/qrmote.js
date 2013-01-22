@@ -1737,11 +1737,11 @@ function QRcode(elementId, key, options) {
   this.key = key;
   this.infoDiv = 'qrmote_info_' + this.key;
 
-  var type = options.type || 4;
-  for (var i = type; i <= 10; i++) {
+  var version = options.version || 4;
+  for (var i = version; i <= 10; i++) {
     try {
       var qr = qrcode(i, options.errorCorrection || 'L');
-      qr.addData(QRmote.socketHost + '/connect/' + key);
+      qr.addData(QRmote.socketHost + '/c/' + key);
       qr.make();
       break;
     }
@@ -1863,7 +1863,7 @@ QRmote.Client = function() {
   self.share = function(elementId, options) {
     options = options || {};
     new QRcode(elementId, serverId, {
-      type: options.qrType || 4,
+      version: options.qrVersion || 4,
       errorCorrection: options.errorCorrection || 'L',
       size: options.qrSize || 4,
       indicator: false
@@ -1898,9 +1898,9 @@ QRmote.Server = function(config) {
 
           self.id = serverId;
           qrCode = new QRcode(elementId, serverId, {
-            type: config.qrType || 4,
-            errorCorrection: config.errorCorrection || 'L',
-            size: config.qrSize || 4,
+            version: options.qrVersion || 4,
+            errorCorrection: options.errorCorrection || 'L',
+            size: options.qrSize || 4,
             indicator: true
           });
         });
