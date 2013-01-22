@@ -66,35 +66,38 @@ for you.
 The QRMote.Server object
 ========================
 
-**new QRMote.Server(options)**
+new QRMote.Server(options)
+--------------------------
 
-*options.clientUrl:* (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
-
-
-**server.render(elementId, options)**
-
-*elementId*: (required) the ID of the element to render the QR code in to.
+**options.clientUrl:** (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
 
 
-*options.qrVersion*: (default: 4) the symbol version of the QR code to render.
+server.render(elementId, options)
+---------------------------------
 
-*options.errorCorrection*: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
+**elementId**: (required) the ID of the element to render the QR code in to.
 
-*options.qrSize*: (default: 4) the pixel size of the QR code.
+**options.qrVersion**: (default: 4) the symbol version of the QR code to render.
 
+**options.errorCorrection**: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
 
-**server.on(eventName, fn(data))**
-
-*eventName*: (required) the name of the event to handle.
-
-*fn*: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the client. This object can be of any type.
+**options.qrSize**: (default: 4) the pixel size of the QR code.
 
 
-**server.emit(eventName, data)**
+server.on(eventName, fn(data))
+------------------------------
 
-*eventName*: (required) the name of the event to emit.
+**eventName**: (required) the name of the event to handle.
 
-*data*: (required) the data to emit. This object can be of any type.
+**fn**: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the client. This object can be of any type.
+
+
+server.emit(eventName, data)
+----------------------------
+
+**eventName**: (required) the name of the event to emit.
+
+**data**: (required) the data to emit. This object can be of any type.
 
 
 System events
@@ -113,29 +116,33 @@ This event is sent by the client when it disconnects. The number of clients conn
 The QRMote.Client object
 ========================
 
-**new QRMote.Client()**
+new QRMote.Client()
+-------------------
 
-**client.share(elementId, options)**
+client.share(elementId, options)
+--------------------------------
 
-*elementId*: (required) the ID of the element to render the QR code in to.
+**elementId**: (required) the ID of the element to render the QR code in to.
 
-*options.qrVersion*: (default: 4) the symbol version of the QR code to render.
+**options.qrVersion**: (default: 4) the symbol version of the QR code to render.
 
-*options.errorCorrection*: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
+**options.errorCorrection**: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
 
-*options.qrSize*: (default: 4) the pixel size of the QR code.
-
-
-**client.on(eventName, fn(data))**
-
-*eventName*: (required) the name of the event to handle.
-
-*fn*: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the server. This object can be of any type.
+**options.qrSize**: (default: 4) the pixel size of the QR code.
 
 
-**client.emit(eventName, data)**
+client.on(eventName, fn(data))
+------------------------------
 
-*eventName*: (required) the name of the event to emit.
+**eventName**: (required) the name of the event to handle.
 
-*data*: (required) the data to emit. This object can be of any type.
+**fn**: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the server. This object can be of any type.
+
+
+client.emit(eventName, data)
+----------------------------
+
+**eventName**: (required) the name of the event to emit.
+
+**data**: (required) the data to emit. This object can be of any type.
 
