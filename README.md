@@ -119,16 +119,7 @@ The QRMote.Client object
 new QRMote.Client()
 -------------------
 
-client.share(elementId, options)
---------------------------------
-
-**elementId**: (required) the ID of the element to render the QR code in to.
-
-**options.qrVersion**: (default: 4) the symbol version of the QR code to render.
-
-**options.errorCorrection**: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
-
-**options.qrSize**: (default: 4) the pixel size of the QR code.
+Creates a new client object.
 
 
 client.on(eventName, fn(data))
@@ -146,3 +137,16 @@ client.emit(eventName, data)
 
 **data**: (required) the data to emit. This object can be of any type.
 
+
+client.share(elementId, options)
+--------------------------------
+
+Enables a client to share their connection by displaying a QR code for other devices to scan.
+
+**elementId**: (required) the ID of the element to render the QR code in to.
+
+**options.qrVersion**: (default: 4) the symbol version of the QR code to render.
+
+**options.errorCorrection**: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
+
+**options.qrSize**: (default: 4) the pixel size of the QR code.
