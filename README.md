@@ -78,14 +78,18 @@ server.render(elementId, options)
 *options.qrSize*: (default: 4) the pixel size of the QR code.
 
 
-**server.on(eventName, fn(data))**
+```javascript
+server.on(eventName, fn(data))
+```
 
 *eventName*: (required) the name of the event to handle.
 
 *fn*: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the client. This object can be of any type.
 
 
-**server.emit(eventName, data)**
+```javascript
+server.emit(eventName, data)
+```
 
 *eventName*: (required) the name of the event to emit.
 
