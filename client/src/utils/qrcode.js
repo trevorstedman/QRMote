@@ -5,9 +5,18 @@ function QRcode(elementId, key, options) {
   this.key = key;
   this.infoDiv = 'qrmote_info_' + this.key;
 
-  var qr = qrcode(options.type || 4, options.errorCorrection || 'L');
-  qr.addData(QRmote.socketHost + '/connect/' + key);
-  qr.make();
+  var type = options.type || 4;
+  for (var i = type; i <= 10; i++) {
+    try {
+      var qr = qrcode(i, options.errorCorrection || 'L');
+      qr.addData(QRmote.socketHost + '/connect/' + key);
+      qr.make();
+      break;
+    }
+    catch (e) {
+      // continue
+    }
+  }
 
   var html = '<div style="width:132px">' +
               '<div style="height:132px;margin-bottom:5px;">' + qr.createImgTag(options.size || 4, options.margin || 0) + '</div>' +

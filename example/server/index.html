@@ -19,7 +19,8 @@
           $output = $('#output' + seed),
           server = new QRmote.Server({
             element: 'qrmote_qrcode' + seed,
-            clientUrl: Config.exampleSite + '/ipmote/example/client'
+            clientUrl: Config.exampleSite + '/ipmote/example/client',
+            qrType: 3
           });
 
         window['server' + seed] = server;

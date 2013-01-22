@@ -26,7 +26,7 @@ app.get('/', function(req, res) {
  * This is basically just a URL shortening service which allows us to keep the
  * QR codes as simple as possible.
  */
-app.get('/connect/:id', function(req, res) {
+app.get('/c/:id', function(req, res) {
   var server = store.get(req.params.id);
   if (!!server) {
     res.redirect(server.remoteUrl + '?_qsid=' + req.params.id);
