@@ -65,11 +65,7 @@ Constructor
 new QRMote.Server(options)
 ```
 
-**options**
-Type: PlainObject
-
-    **clientUrl**
-    Type: String
+**options.clientUrl:** The URL of the client page - the page to be loaded into the device scanning the QR code.
 
 
 Multiple servers on a single page
