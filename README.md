@@ -58,15 +58,12 @@ using `client.on(message, handler)`.
 The QRMote.Server object
 ========================
 
-```javascript
-new QRMote.Server(options)
-```
+**new QRMote.Server(options)**
 
 *options.clientUrl:* (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
 
-```javascript
-server.render(elementId, options)
-```
+
+**server.render(elementId, options)**
 
 *elementId*: (required) the ID of the element to render the QR code in to.
 
@@ -78,18 +75,14 @@ server.render(elementId, options)
 *options.qrSize*: (default: 4) the pixel size of the QR code.
 
 
-```javascript
-server.on(eventName, fn(data))
-```
+**server.on(eventName, fn(data))**
 
 *eventName*: (required) the name of the event to handle.
 
 *fn*: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the client. This object can be of any type.
 
 
-```javascript
-server.emit(eventName, data)
-```
+**server.emit(eventName, data)**
 
 *eventName*: (required) the name of the event to emit.
 
@@ -118,13 +111,9 @@ for you.
 The QRMote.Client object
 ========================
 
-```javascript
-var client = new QRMote.Client()
-```
+**new QRMote.Client()**
 
-```javascript
-client.share(elementId, options)
-```
+**client.share(elementId, options)**
 
 *elementId*: (required) the ID of the element to render the QR code in to.
 
@@ -135,18 +124,14 @@ client.share(elementId, options)
 *options.qrSize*: (default: 4) the pixel size of the QR code.
 
 
-```javascript
-client.on(eventName, fn(data))
-```
+**client.on(eventName, fn(data))**
 
 *eventName*: (required) the name of the event to handle.
 
 *fn*: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the server. This object can be of any type.
 
 
-```javascript
-server.emit(eventName, data)
-```
+**client.emit(eventName, data)**
 
 *eventName*: (required) the name of the event to emit.
 
