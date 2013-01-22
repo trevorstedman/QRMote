@@ -67,9 +67,9 @@ server.render(elementId, options)
 ---------------------------------
 
 *elementId*: (required) the ID of the element to render the QR code in to.
-*options.qrVersion*: (default: 4) the type
-*options.errorCorrection*: (default: L)
-*options.qrSize*: (default: 4)
+*options.qrVersion*: (default: 4) the symbol version of the QR code to render.
+*options.errorCorrection*: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
+*options.qrSize*: (default: 4) the pixel size of the QR code.
 
 
 Multiple servers on a single page
