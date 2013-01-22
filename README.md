@@ -32,9 +32,9 @@ of your websocket server). Put qrmote.js in the same directory (or put it in a k
 <script>
   QRmote.init('http://websockethost:8080');
   var server = new QRmote.Server({
-    element: 'my_qrmote_div',
     clientUrl: 'http://path/to/your/client/page' // do not use localhost here - otherwise it will not work on the phone
-  });
+  })
+  .render('my_qrmote_div');
   // send and receive messages here using server.on and server.emit
 </script>
 ```
