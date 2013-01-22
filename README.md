@@ -66,11 +66,13 @@ The QRMote.Server object
 
 *elementId*: (required) the ID of the element to render the QR code in to.
 
+
 *options.qrVersion*: (default: 4) the symbol version of the QR code to render.
 
 *options.errorCorrection*: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
 
 *options.qrSize*: (default: 4) the pixel size of the QR code.
+
 
 **server.on(eventName, fn(data))**
 
@@ -78,11 +80,13 @@ The QRMote.Server object
 
 *fn*: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the client. This object can be of any type.
 
+
 **server.emit(eventName, data)**
 
 *eventName*: (required) the name of the event to emit.
 
 *data*: (required) the data to emit. This object can be of any type.
+
 
 Multiple servers on a single page
 ---------------------------------
