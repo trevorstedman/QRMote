@@ -58,14 +58,13 @@ using `client.on(message, handler)`.
 The QRMote.Server object
 ========================
 
-Constructor
+new QRMote.Server(options)
 -----------
 
-```javascript
-new QRMote.Server(options)
-```
-
 **options.clientUrl:** The URL of the client page - the page to be loaded into the device scanning the QR code.
+
+server.render(elementId, options)
+---------------------------------
 
 
 Multiple servers on a single page
