@@ -87,6 +87,8 @@ server.render(elementId, options)
 server.on(eventName, fn(data))
 ------------------------------
 
+Adds a handler for receiving messages with the given event name from all connected clients.
+
 **eventName**: (required) the name of the event to handle.
 
 **fn**: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the client. This object can be of any type.
@@ -94,6 +96,8 @@ server.on(eventName, fn(data))
 
 server.emit(eventName, data)
 ----------------------------
+
+Sends a message to all clients connected to this server page.
 
 **eventName**: (required) the name of the event to emit.
 
@@ -125,6 +129,8 @@ Creates a new client object.
 client.on(eventName, fn(data))
 ------------------------------
 
+Adds a handler for receiving messages with the given event name from the server page.
+
 **eventName**: (required) the name of the event to handle.
 
 **fn**: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the server. This object can be of any type.
@@ -132,6 +138,8 @@ client.on(eventName, fn(data))
 
 client.emit(eventName, data)
 ----------------------------
+
+Sends a message to the server page.
 
 **eventName**: (required) the name of the event to emit.
 
