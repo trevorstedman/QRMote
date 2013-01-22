@@ -69,11 +69,15 @@ The QRMote.Server object
 new QRMote.Server(options)
 --------------------------
 
+Creates a new server object.
+
 **options.clientUrl:** (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
 
 
 server.render(elementId, options)
 ---------------------------------
+
+Renders a QR code in the given element.
 
 **elementId**: (required) the ID of the element to render the QR code in to.
 
