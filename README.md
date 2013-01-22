@@ -117,3 +117,38 @@ for you.
 
 The QRMote.Client object
 ========================
+
+```javascript
+var client = new QRMote.Client()
+```
+
+```javascript
+client.share(elementId, options)
+```
+
+*elementId*: (required) the ID of the element to render the QR code in to.
+
+*options.qrVersion*: (default: 4) the symbol version of the QR code to render.
+
+*options.errorCorrection*: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
+
+*options.qrSize*: (default: 4) the pixel size of the QR code.
+
+
+```javascript
+client.on(eventName, fn(data))
+```
+
+*eventName*: (required) the name of the event to handle.
+
+*fn*: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the server. This object can be of any type.
+
+
+```javascript
+server.emit(eventName, data)
+```
+
+*eventName*: (required) the name of the event to emit.
+
+*data*: (required) the data to emit. This object can be of any type.
+
