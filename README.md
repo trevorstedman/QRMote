@@ -88,6 +88,19 @@ The QRMote.Server object
 *data*: (required) the data to emit. This object can be of any type.
 
 
+System events
+-------------
+
+**client_connect: count**
+
+This event is sent by the client when it connects. The number of clients connected to this server is passed as data with this event.
+
+
+**client_disconnect: count**
+
+This event is sent by the client when it disconnects. The number of clients connected to this server is passed as data with this event.
+
+
 Multiple servers on a single page
 ---------------------------------
 
