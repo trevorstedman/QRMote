@@ -64,7 +64,7 @@ new QRMote.Server(options)
 
 *options.clientUrl:* (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
 
-``javascript
+```javascript
 server.render(elementId, options)
 ```
 
