@@ -61,10 +61,15 @@ The QRMote.Server object
 new QRMote.Server(options)
 -----------
 
-**options.clientUrl:** The URL of the client page - the page to be loaded into the device scanning the QR code.
+*options.clientUrl:* (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
 
 server.render(elementId, options)
 ---------------------------------
+
+*elementId*: (required) the ID of the element to render the QR code in to.
+*options.qrVersion*: (default: 4) the type
+*options.errorCorrection*: (default: L)
+*options.qrSize*: (default: 4)
 
 
 Multiple servers on a single page

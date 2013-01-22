@@ -23,7 +23,7 @@ QRmote.Server = function(config) {
 
           self.id = serverId;
           qrCode = new QRcode(elementId, serverId, {
-            type: options.qrType || 4,
+            version: options.qrVersion || 4,
             errorCorrection: options.errorCorrection || 'L',
             size: options.qrSize || 4,
             indicator: true

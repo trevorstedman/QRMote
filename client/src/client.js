@@ -16,7 +16,7 @@ QRmote.Client = function() {
   self.share = function(elementId, options) {
     options = options || {};
     new QRcode(elementId, serverId, {
-      type: options.qrType || 4,
+      version: options.qrVersion || 4,
       errorCorrection: options.errorCorrection || 'L',
       size: options.qrSize || 4,
       indicator: false
