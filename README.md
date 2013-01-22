@@ -60,13 +60,13 @@ The QRMote.Server object
 
 ```javascript
 new QRMote.Server(options)
-``
+```
 
 *options.clientUrl:* (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
 
 ``javascript
 server.render(elementId, options)
-``
+```
 
 *elementId*: (required) the ID of the element to render the QR code in to.
 
