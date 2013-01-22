@@ -1,13 +1,10 @@
-QRmote
-======
-
 Prerequisites
--------------
+=============
 
 You will need [node](http://www.nodejs.org) (v0.8+) and grunt installed. Once node is installed you may install grunt using `sudo npm -g install grunt`.
 
 Quick start
------------
+===========
 
 First, build a copy of the client application.
 
@@ -57,3 +54,9 @@ Messages can be sent to the server page from the client page using `client.emit(
 
 Conversely, the server page can also communicate back to the client using `server.emit(message, data)`, the client receiving the message
 using `client.on(message, handler)`.
+
+Multiple servers on a single page
+=================================
+
+Simply invoke `new QRmote.Server` multiple times to create multiple servers on a single page. QRmote will multiplex the socket connection
+for you.
