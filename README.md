@@ -55,6 +55,14 @@ Messages can be sent to the server page from the client page using `client.emit(
 Conversely, the server page can also communicate back to the client using `server.emit(message, data)`, the client receiving the message
 using `client.on(message, handler)`.
 
+
+Multiple servers on a single page
+=================================
+
+Simply invoke `new QRmote.Server` multiple times to create multiple servers on a single page. QRmote will multiplex the socket connection
+for you.
+
+
 The QRMote.Server object
 ========================
 
@@ -101,12 +109,6 @@ This event is sent by the client when it connects. The number of clients connect
 
 This event is sent by the client when it disconnects. The number of clients connected to this server is passed as data with this event.
 
-
-Multiple servers on a single page
----------------------------------
-
-Simply invoke `new QRmote.Server` multiple times to create multiple servers on a single page. QRmote will multiplex the socket connection
-for you.
 
 The QRMote.Client object
 ========================
