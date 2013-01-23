@@ -108,19 +108,6 @@ Sends a message to all clients connected to this server page.
 **data**: (required) the data to emit. This object can be of any type.
 
 
-System events
--------------
-
-**client_connect: count**
-
-This event is sent by the client when it connects. The number of clients connected to this server is passed as data with this event.
-
-
-**client_disconnect: count**
-
-This event is sent by the client when it disconnects. The number of clients connected to this server is passed as data with this event.
-
-
 The QRMote.Client object
 ========================
 
@@ -162,3 +149,17 @@ Enables a client to share their connection by displaying a QR code for other dev
 **options.errorCorrection**: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
 
 **options.qrSize**: (default: 4) the pixel size of the QR code.
+
+
+
+System events
+=============
+
+**client_connect(count)**
+
+This event is sent by the client when it connects. The number of clients connected to this server is passed as data with this message.
+
+
+**client_disconnect(count)**
+
+This event is sent by the client when it disconnects. The number of clients connected to this server is passed as data with this message.
