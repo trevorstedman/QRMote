@@ -5,7 +5,8 @@
   "description": "The server component for QRmote - a QR code based remote control tool",
   "dependencies": {
     "express":  "*",
-    "socket.io":  "*"
+    "socket.io":  "*",
+    "nconf": "*"
   },
   "engines": {
     "node": ">=0.8"

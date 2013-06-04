@@ -4,12 +4,16 @@ var
   server = require('http').createServer(app),
   io = require('socket.io').listen(server),
   store = require('./src/store'),
+  nconf = require('nconf'),
   serverSockets = require('./src/server-sockets'),
   clientSockets = require('./src/client-sockets'),
   serverChannels = require('./src/server-channels').init(io);
 
+nconf.file({ file: 'config.json' });
+nconf.file({ file: 'local.json' });
+
 // use port 8080 - this is what my hosting provider (Modulus) requires.
-server.listen(8080);
+server.listen(nconf.get('websocket.server.port'));
 
 // create a directory for serving static content - may be useful later
 app.use(express.static(__dirname + '/public'));
