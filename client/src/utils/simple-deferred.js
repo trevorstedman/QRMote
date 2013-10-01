@@ -5,7 +5,12 @@ function SimpleDeferred() {
     args;
 
   this.done = function(fn) {
-    queue ? queue.push(fn) : fn.apply(window, args);
+    if (!!queue) {
+      queue.push(fn);
+    }
+    else {
+      fn.apply(window, args);
+    }
   };
 
   this.resolve = function() {

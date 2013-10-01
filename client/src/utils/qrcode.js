@@ -6,9 +6,11 @@ function QRcode(elementId, key, options) {
   this.infoDiv = 'qrmote_info_' + this.key;
 
   var version = options.version || 4;
+  var qr;
+
   for (var i = version; i <= 10; i++) {
     try {
-      var qr = qrcode(i, options.errorCorrection || 'L');
+      qr = qrcode(i, options.errorCorrection || 'L');
       qr.addData(QRmote.socketHost + '/c/' + key);
       qr.make();
       break;

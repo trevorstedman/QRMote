@@ -30,7 +30,7 @@ function loadScript(url, done) {
   };
 
   // Opera has readyState too, but does not behave in a consistent way
-  if(script.readyState && script.onload !== null) {
+  if (script.readyState && script.onload !== null) {
     // IE only (onload===undefined) not Opera (onload===null)
     script.onreadystatechange = function() {
       if (script.readyState === 'loaded' || script.readyState === 'complete') {

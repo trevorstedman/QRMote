@@ -1,3 +1,5 @@
+(function() {
+
 //---------------------------------------------------------------------
 //
 // QR Code Generator for JavaScript
@@ -1632,11 +1634,29 @@ var qrcode = function() {
 
 	return qrcode;
 }();
-function object(o) {
-  function F() {}
-  F.prototype = o;
-  return new F();
-}
+var Callbacks = function() {
+
+  var callbacks = {};
+
+  this.fire = function(name, args) {
+    var funcs = callbacks[name];
+    if (!!funcs) {
+      for (var i = 0; i < funcs.length; i++) {
+        funcs[i].apply(window, args);
+      }
+    }
+  };
+
+  this.on = function(name, callback) {
+    var funcs = callbacks[name];
+    if (!funcs) {
+      funcs = callbacks[name] = [];
+    }
+    funcs.push(callback);
+  };
+};
+
+
 function QRcode(elementId, key, options) {
 
   options = options || {};
@@ -1645,9 +1665,11 @@ function QRcode(elementId, key, options) {
   this.infoDiv = 'qrmote_info_' + this.key;
 
   var version = options.version || 4;
+  var qr;
+
   for (var i = version; i <= 10; i++) {
     try {
-      var qr = qrcode(i, options.errorCorrection || 'L');
+      qr = qrcode(i, options.errorCorrection || 'L');
       qr.addData(QRmote.socketHost + '/c/' + key);
       qr.make();
       break;
@@ -1715,7 +1737,7 @@ function loadScript(url, done) {
   };
 
   // Opera has readyState too, but does not behave in a consistent way
-  if(script.readyState && script.onload !== null) {
+  if (script.readyState && script.onload !== null) {
     // IE only (onload===undefined) not Opera (onload===null)
     script.onreadystatechange = function() {
       if (script.readyState === 'loaded' || script.readyState === 'complete') {
@@ -1731,29 +1753,6 @@ function loadScript(url, done) {
   }
   document.head.appendChild(script);
 }
-var Callbacks = function() {
-
-  var callbacks = {};
-
-  this.fire = function(name, args) {
-    var funcs = callbacks[name];
-    if (!!funcs) {
-      for (var i = 0; i < funcs.length; i++) {
-        funcs[i].apply(window, args);
-      }
-    }
-  };
-
-  this.on = function(name, callback) {
-    var funcs = callbacks[name];
-    if (!funcs) {
-      funcs = callbacks[name] = [];
-    }
-    funcs.push(callback);
-  };
-};
-
-
 function SimpleDeferred() {
 
   var
@@ -1761,7 +1760,12 @@ function SimpleDeferred() {
     args;
 
   this.done = function(fn) {
-    queue ? queue.push(fn) : fn.apply(window, args);
+    if (!!queue) {
+      queue.push(fn);
+    }
+    else {
+      fn.apply(window, args);
+    }
   };
 
   this.resolve = function() {
@@ -1776,6 +1780,11 @@ function SimpleDeferred() {
   };
 }
 
+function object(o) {
+  function F() {}
+  F.prototype = o;
+  return new F();
+}
 window.QRmote = window.QRmote || {};
 
 var sockets;
@@ -1921,3 +1930,6 @@ QRmote.Server = function(config) {
   return self;
 };
 
+
+
+});
