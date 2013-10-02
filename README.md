@@ -1,61 +1,165 @@
-# [HTML5 Boilerplate](http://html5boilerplate.com)
+Prerequisites
+=============
 
-HTML5 Boilerplate is a professional front-end template for building fast,
-robust, and adaptable web apps or sites.
+You will need [node](http://www.nodejs.org) (v0.8+) and grunt installed. Once node is installed you may install grunt using `sudo npm -g install grunt`.
 
-This project is the product of many years of iterative development and combined
-community knowledge. It does not impose a specific development philosophy or
-framework, so you're free to architect your code in the way that you want.
+Getting started
+===============
 
-* Source: [https://github.com/h5bp/html5-boilerplate](https://github.com/h5bp/html5-boilerplate)
-* Homepage: [http://html5boilerplate.com](http://html5boilerplate.com)
-* Twitter: [@h5bp](http://twitter.com/h5bp)
+First, build a copy of the client application.
+
+```bash
+grunt build
+```
+
+The client library will be written to `client/dist/qrmote.js`.
+
+In order to get two web pages communicating with eachother, you will need to start a websocket server from the /server directory. Run the
+following command from inside the server directory, which will start the server on port 8080.
+
+```bash
+node app.js
+```
+
+Create a "server" HTML page with a <div> on it named 'my_qrmote_div', and the following javascript (replace websockethost with the hostname
+of your websocket server). Put qrmote.js in the same directory (or put it in a known place and modify the script tag src path appropriately).
+
+```html
+<script src="qrmote.js"></script>
+<script>
+  QRmote.init('http://websockethost:8080');
+  var server = new QRmote.Server({
+    clientUrl: 'http://path/to/your/client/page' // do not use localhost here - otherwise it will not work on the phone
+  })
+  .render('my_qrmote_div');
+  // send and receive messages here using server.on and server.emit
+</script>
+```
+
+Create a "client" HTML page with the following javascript, replacing 'websockethost' with the hostname of your websocket server.
+Put qrmote.js in the same directory (or put it in a known place and modify the script tag src path appropriately).
+
+```html
+<script src="qrmote.js"></script>
+<script>
+  QRmote.init('http://websockethost:8080');
+  var client = new QRmote.Client();
+  // send and receive messages here using client.on and client.emit
+</script>
+```
+
+This will render a QR code on the page inside the given div. Scanning this code with a smartphone opens the client web page on the phone.
+Messages can be sent to the server page from the client page using `client.emit(message, data)` and received on the server page using
+`server.on(message, handler)`.
+
+Conversely, the server page can also communicate back to the client using `server.emit(message, data)`, the client receiving the message
+using `client.on(message, handler)`.
 
 
-## Quick start
+Multiple servers on a single page
+=================================
 
-Choose one of the following options:
-
-1. Download the latest stable release from
-   [html5boilerplate.com](http://html5boilerplate.com/) or a custom build from
-   [Initializr](http://www.initializr.com).
-2. Clone the git repo — `git clone
-   https://github.com/h5bp/html5-boilerplate.git` - and checkout the tagged
-   release you'd like to use.
+Simply invoke `new QRmote.Server` multiple times to create multiple servers on a single page. QRmote will multiplex the socket connection
+for you.
 
 
-## Features
+The QRMote.Server object
+========================
 
-* HTML5 ready. Use the new elements with confidence.
-* Cross-browser compatible (Chrome, Opera, Safari, Firefox 3.6+, IE6+).
-* Designed with progressive enhancement in mind.
-* Includes [Normalize.css](http://necolas.github.com/normalize.css/) for CSS
-  normalizations and common bug fixes.
-* The latest [jQuery](http://jquery.com/) via CDN, with a local fallback.
-* The latest [Modernizr](http://modernizr.com/) build for feature detection.
-* IE-specific classes for easier cross-browser control.
-* Placeholder CSS Media Queries.
-* Useful CSS helpers.
-* Default print CSS, performance optimized.
-* Protection against any stray `console.log` causing JavaScript errors in
-  IE6/7.
-* An optimized Google Analytics snippet.
-* Apache server caching, compression, and other configuration defaults for
-  Grade-A performance.
-* Cross-domain Ajax and Flash.
-* "Delete-key friendly." Easy to strip out parts you don't need.
-* Extensive inline and accompanying documentation.
+new QRMote.Server(options)
+--------------------------
+
+Creates a new server object.
+
+**options.clientUrl:** (required) the URL of the client page - the page to be loaded into the device scanning the QR code.
 
 
-## Documentation
+server.render(elementId, options)
+---------------------------------
 
-Take a look at the [documentation table of contents](doc/TOC.md). This
-documentation is bundled with the project, which makes it readily available for
-offline reading and provides a useful starting point for any documentation you
-want to write about your project.
+Renders a QR code in the given element.
+
+**elementId**: (required) the ID of the element to render the QR code in to.
+
+**options.qrVersion**: (default: 4) the symbol version of the QR code to render.
+
+**options.errorCorrection**: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
+
+**options.qrSize**: (default: 4) the pixel size of the QR code.
 
 
-## Contributing
+server.on(eventName, fn(data))
+------------------------------
 
-Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). Hundreds of
-developers have helped make the HTML5 Boilerplate what it is today.
+Adds a handler for receiving messages with the given event name from all connected clients.
+
+**eventName**: (required) the name of the event to handle.
+
+**fn**: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the client. This object can be of any type.
+
+
+server.emit(eventName, data)
+----------------------------
+
+Sends a message to all clients connected to this server page.
+
+**eventName**: (required) the name of the event to emit.
+
+**data**: (required) the data to emit. This object can be of any type.
+
+
+The QRMote.Client object
+========================
+
+new QRMote.Client()
+-------------------
+
+Creates a new client object.
+
+
+client.on(eventName, fn(data))
+------------------------------
+
+Adds a handler for receiving messages with the given event name from the server page.
+
+**eventName**: (required) the name of the event to handle.
+
+**fn**: (required) a function object which handles the incoming event. The function is passed a single data object containing the data emitted from the server. This object can be of any type.
+
+
+client.emit(eventName, data)
+----------------------------
+
+Sends a message to the server page.
+
+**eventName**: (required) the name of the event to emit.
+
+**data**: (required) the data to emit. This object can be of any type.
+
+
+client.share(elementId, options)
+--------------------------------
+
+Enables a client to share their connection by displaying a QR code for other devices to scan.
+
+**elementId**: (required) the ID of the element to render the QR code in to.
+
+**options.qrVersion**: (default: 4) the symbol version of the QR code to render.
+
+**options.errorCorrection**: (default: L) the error correction level of the QR code to render. Can be 'L', 'M', or 'H'. Increasing the error correction may require you to increase the symbol version.
+
+**options.qrSize**: (default: 4) the pixel size of the QR code.
+
+
+
+System events
+=============
+
+**client_connect(count)**
+
+This event is sent by the client when it connects. The number of clients connected to this server is passed as data with this message.
+
+
+**client_disconnect(count)**
+
+This event is sent by the client when it disconnects. The number of clients connected to this server is passed as data with this message.
