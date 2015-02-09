@@ -9,11 +9,15 @@ var
   clientSockets = require('./src/client-sockets'),
   serverChannels = require('./src/server-channels').init(io);
 
-nconf.file({ file: 'config.json' });
-nconf.file({ file: 'local.json' });
+nconf.file("config", { file: __dirname + '/config.json' });
+nconf.file("local", { file: __dirname + '/local.json' });
+
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var ipAddr = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+
 
 // use port 8080 - this is what my hosting provider (Modulus) requires.
-server.listen(nconf.get('websocket.server.port'));
+server.listen(port, ipAddr, function() { console.log("Listening on " + ipAddr + ":" + port); });
 
 // create a directory for serving static content - may be useful later
 app.use(express.static(__dirname + '/public'));

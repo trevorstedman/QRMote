@@ -1,3 +1,3 @@
 {
-  "websocket.server.port": 8080
+  "websocket.server.port": "8080"
 }
